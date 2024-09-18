@@ -24,7 +24,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = ["moose-spectra"]
 
 [project.urls]
 Documentation = "https://github.com/AntoineSalden/test-hatch-uv-actions#readme"
@@ -65,3 +65,21 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.hatch.envs.default]
+installer = "uv"
+
+[tool.hatch.envs.hatch-test.overrides]
+matrix.feature.dependencies = [
+  { value = "pandas==1.5.3", if = ["pandas-legacy"], python=["3.10"]},
+  { value = "numpy<2.0", if = ["pandas-legacy"], python = ["3.10"] },
+  { value = "pandas>=2.0.0", if = ["pandas-2.0"] },
+  { value = "numpy>=2.0", if = ["pandas-2.0"] },
+]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.9","3.10", "3.11"]
+feature = ["pandas-legacy","pandas-2.0"]
+
+[tool.uv]
+cache-keys = [{ git = true }]
