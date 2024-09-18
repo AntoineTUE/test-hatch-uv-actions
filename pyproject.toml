@@ -83,3 +83,9 @@ feature = ["pandas-legacy","pandas-2.0"]
 
 [tool.uv]
 cache-keys = [{ git = true }]
+
+[tool.hatch.metadata.hooks.fancy-pypi-readme]
+content-type = "text/markdown"
+fragments = [
+    { path = "README.md" }
+]
