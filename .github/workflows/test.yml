@@ -38,7 +38,7 @@ jobs:
         enable-cache: true
 
     - name: Install Hatch
-      run: pip install --upgrade hatch
+      run: uv pip install --upgrade hatch
 
     - name: Run tests
       run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
